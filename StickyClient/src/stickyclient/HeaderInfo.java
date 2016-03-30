@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package stickyclient;
 import java.io.*;
 /**
  *
- * @author aditi
+ * @author pc
  */
-public class HeaderInfo implements Serializable {
+public class HeaderInfo implements Serializable{
     
 }

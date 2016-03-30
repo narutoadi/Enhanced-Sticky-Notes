@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package stickyclient;
-import java.io.*;
 
+package stickyclient;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.io.*;
+import java.util.Date;
+import java.util.Vector;
 /**
  *
- * @author aditi
+ * @author pc
  */
 public class StickyClient {
 
@@ -17,40 +21,38 @@ public class StickyClient {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        try{
-            File file=new File("Notes.stk");
-            if(file==null)
-            {
-                CommRes.isFirst=true;
-                //Since there is no file, so lets create the only file
-                //which is going to store the whole information
-                FileOutputStream fout = new FileOutputStream("Notes.stk");
-                /*
-                Lets decide the structure of the file
-                the file will first have the object of class 'headerInfo'
-                and then objects of class 'note'
-                */
-                ObjectOutputStream out = new ObjectOutputStream(fout);
-                HeaderInfo hinfo =new HeaderInfo();
-                out.writeObject(hinfo);
-                out.close();
-                fout.close();
-            }
-            else
-            {
-                CommRes.isFirst=false;
-                FileInputStream fin = new FileInputStream("Notes.stk");
-                ObjectInputStream in = new ObjectInputStream(fin);
-                in.readObject();
-                HeaderInfo hinfo = (HeaderInfo) in.readObject();
-                
-                // Now store all these objects in a vector and invoke a window for 
-                //each object.
-            }
-            
-        }catch(Exception e){
-            
-        }
+        CommRes.notes=new Vector();
+        StickyNote note=new StickyNote();
+        Toolkit tool=Toolkit.getDefaultToolkit();
+        Dimension size=tool.getScreenSize();
+        final int HEIGHT=190;
+        note.setBounds(size.width/2-CommRes.WIDTH/2, size.height/2-HEIGHT/2, CommRes.WIDTH, HEIGHT);
+        note.setVisible(true);
+        note.setEditable();
+        note.id=new Date().toString();
+        note.setTitle(note.id);
+        CommRes.notes.add(note);
+        
+//        try{
+//            File file=new File("Notes.stk");
+//            if(file==null){
+//                CommRes.isFirst=true;
+//                FileOutputStream fout=new FileOutputStream("Notes.stk");
+//                ObjectOutputStream out=new ObjectOutputStream(fout);
+//                HeaderInfo hinfo=new HeaderInfo();
+//                out.writeObject(hinfo);
+//                out.close();
+//                fout.close();
+//            }else{
+//                CommRes.isFirst=false;
+//                FileInputStream fin=new FileInputStream(file);
+//                ObjectInputStream in=new ObjectInputStream(fin);
+//                HeaderInfo hinfo=(HeaderInfo)in.readObject();
+//                //read all notes info
+//            }
+//        }catch(Exception ex){
+//            
+//        }
     }
     
 }
