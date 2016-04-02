@@ -6,10 +6,17 @@
 
 package stickyclient;
 import java.io.*;
+import java.util.ArrayList;
 /**
  *
  * @author pc
  */
 public class NotesInfo  implements Serializable{
-    
+    String id;
+    String title;
+    String desc;
+    String createdOn;
+    ArrayList<String> subnotes;
+    int X;
+    int Y;
 }

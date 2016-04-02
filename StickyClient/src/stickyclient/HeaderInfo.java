@@ -1,15 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+//This class contains the common-information for all sticky notes which can be changed by the user. 
 package stickyclient;
+import java.awt.Color;
 import java.io.*;
 /**
  *
- * @author pc
+ * @author aditi
  */
 public class HeaderInfo implements Serializable{
-    
+    String createdOn;
+    String password;
+    String font;
+    int size;
+    int style;
+    Color foreColor;
+    Color bkgColor;
 }
