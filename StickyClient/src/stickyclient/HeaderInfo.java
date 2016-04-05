@@ -1,6 +1,7 @@
 //This class contains the common-information for all sticky notes which can be changed by the user. 
 package stickyclient;
 import java.awt.Color;
+import java.awt.Font;
 import java.io.*;
 /**
  *

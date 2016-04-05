@@ -43,9 +43,9 @@ public class StickyClient {
                 CommRes.hInfo.password="";
                 CommRes.hInfo.font="Arial";
                 CommRes.hInfo.size=12;
-                CommRes.hInfo.style=Font.ITALIC;
+                CommRes.hInfo.style=Font.PLAIN;
                 CommRes.hInfo.foreColor=Color.BLACK;
-                CommRes.hInfo.bkgColor=Color.LIGHT_GRAY;
+                CommRes.hInfo.bkgColor=Color.CYAN;
                 CommRes.notesColl=new ArrayList<NotesInfo>();
                 
                 // Sticky note GUI handling
@@ -55,6 +55,7 @@ public class StickyClient {
                 Toolkit tool=Toolkit.getDefaultToolkit();
                 Dimension size=tool.getScreenSize();
                 // Default height of a sticky note
+                note.applySettings();
                 final int HEIGHT=250;
                 note.setBounds(size.width/2-CommRes.WIDTH/2, size.height/2-HEIGHT/2, CommRes.WIDTH, HEIGHT);
                 note.setVisible(true);
@@ -101,7 +102,8 @@ public class StickyClient {
                     StickyNote note=new StickyNote();
                  //   Toolkit tool=Toolkit.getDefaultToolkit();
                    // Dimension size=tool.getScreenSize();
-                    final int HEIGHT=250;
+                   note.applySettings(); 
+                   final int HEIGHT=250;
                     note.setBounds(CommRes.notesColl.get(i).X,CommRes.notesColl.get(i).Y, CommRes.WIDTH, HEIGHT);
                     note.setVisible(true);
                     note.tareaTitle.setText(CommRes.notesColl.get(i).title);

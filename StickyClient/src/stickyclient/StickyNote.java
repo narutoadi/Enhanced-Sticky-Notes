@@ -31,16 +31,24 @@ public class StickyNote extends JFrame implements ActionListener{
         this.setResizable(false);
         this.addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent we){
-                for(int i=0;i<CommRes.notesColl.size();i++){
+                NotesInfo nInfo=new NotesInfo();
+                    nInfo.id=StickyNote.this.id;
+                    nInfo.title=StickyNote.this.tareaTitle.getText();
+                    nInfo.desc=StickyNote.this.tareaDesc.getText();
+                    nInfo.createdOn=new Date().toString();
+                    nInfo.subnotes=new ArrayList<String>();
+                    nInfo.X=StickyNote.this.getX();
+                    nInfo.Y=StickyNote.this.getY();
+                    StickyNote.this.isNew=false;
+                    
+                    for(int i=0;i<CommRes.notesColl.size();i++){
                 if(CommRes.notesColl.get(i).id==StickyNote.this.id)
                 {
-                    CommRes.notesColl.get(i).X=StickyNote.this.getX();
-                    CommRes.notesColl.get(i).Y=StickyNote.this.getY();
+                    CommRes.notesColl.remove(i);
                 }    
-                
-                CommRes.updateFile();
-                
             }
+                    CommRes.notesColl.add(nInfo);
+                    CommRes.updateFile();
                     
                 for(int i=0;i<CommRes.notes.size();i++){
                     StickyNote note=(StickyNote)CommRes.notes.elementAt(i);
@@ -57,26 +65,39 @@ public class StickyNote extends JFrame implements ActionListener{
  //       this.lblTitle=new JLabel("Title");
    //     this.lblDesc=new JLabel("Description");
         this.tareaTitle=new JTextArea();
+        this.tareaTitle.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         this.tareaDesc=new JTextArea();
+        this.tareaDesc.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         this.jspTitle=new JScrollPane(this.tareaTitle,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+     //   this.jspTitle.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         this.jspDesc=new JScrollPane(this.tareaDesc,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        this.jspDesc.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         this.pnlAction=new JPanel();
+       // this.pnlAction.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         this.tareaTitle.setWrapStyleWord(true);
         this.tareaTitle.setLineWrap(true);
         this.tareaDesc.setWrapStyleWord(true);
         this.tareaDesc.setLineWrap(true);
-
+      //  this.add(this.jspTitle);
+      //  this.jspTitle.setBounds(0, 0, CommRes.WIDTH+1, 30);
         this.design();
        
         
 //ActionPanel
         this.btnNew=new JButton(new ImageIcon("file-add-1.png"));
+        this.btnNew.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         this.btnEdit=new JButton(new ImageIcon("save.png"));
+        this.btnEdit.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         this.btnDelete=new JButton(new ImageIcon("DeleteRed.png"));
+        this.btnDelete.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         this.btnSub=new JButton(new ImageIcon("button-add-icon.png"));
+        this.btnSub.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         this.btnRem=new JButton(new ImageIcon("alarm-icon.png"));
+        this.btnRem.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         this.btnSetting=new JButton(new ImageIcon("setting.png"));
+        this.btnSetting.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         this.btnShare=new JButton(new ImageIcon("share_this_icon.png"));
+        this.btnShare.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         this.pnlAction.setLayout(new GridLayout());
         this.pnlAction.add(this.btnNew);
         this.pnlAction.add(this.btnEdit);
@@ -85,7 +106,7 @@ public class StickyNote extends JFrame implements ActionListener{
         this.pnlAction.add(this.btnShare);
         this.pnlAction.add(this.btnSetting);
         this.pnlAction.add(this.btnSub);
-        
+        this.pnlAction.setBorder(javax.swing.BorderFactory.createLineBorder(Color.WHITE));
         this.btnNew.addActionListener(this);
         this.btnEdit.addActionListener(this);
         this.btnDelete.addActionListener(this);
@@ -99,6 +120,7 @@ public class StickyNote extends JFrame implements ActionListener{
         if(ae.getSource()==this.btnNew){
             StickyNote note=new StickyNote();
             // What does toolkit class do?
+            note.applySettings();
             Toolkit tool=Toolkit.getDefaultToolkit();
             Dimension size=tool.getScreenSize();
             final int HEIGHT=250;
@@ -144,12 +166,15 @@ public class StickyNote extends JFrame implements ActionListener{
             }
         }
         if(ae.getSource()==this.btnDelete){
+            // Remove elements from array list
             for(int i=0;i<CommRes.notesColl.size();i++){
                 if(CommRes.notesColl.get(i).id==this.id)
                     CommRes.notesColl.remove(i);
                 
             }
+            // Rewrote the arraylist to file
             CommRes.updateFile();
+            // Removed the note from display vector
             for(int i=0;i<CommRes.notes.size();i++){
                 
                     StickyNote note=(StickyNote)CommRes.notes.elementAt(i);
@@ -158,9 +183,10 @@ public class StickyNote extends JFrame implements ActionListener{
                         break;
                     }
                 }
-                //System.exit(1);
+                //disposed the window
                 this.dispose();
         }
+        
         if(ae.getSource()==this.btnSetting){
             Settings win=new Settings();
             Toolkit tool=Toolkit.getDefaultToolkit();
@@ -190,16 +216,45 @@ public class StickyNote extends JFrame implements ActionListener{
     }
     private void setPos(Component C,int x,int y,int h){
         this.add(C);
-        C.setBounds(x, y, CommRes.WIDTH, h);
+        C.setBounds(x, y, CommRes.WIDTH+1, h);
        // C.setFont(CommRes.font);
     }
     public void applySettings(){
-        Component carr[]=this.getComponents();
-        for(int i=0;i<carr.length;i++){
-            carr[i].setFont(new Font(CommRes.hInfo.font,CommRes.hInfo.style,CommRes.hInfo.size));
-            carr[i].setForeground(CommRes.hInfo.foreColor);
-            carr[i].setBackground(CommRes.hInfo.bkgColor);
+        
+        
+                Font fontTemp=new Font(CommRes.hInfo.font,CommRes.hInfo.style,CommRes.hInfo.size);
+                
+                this.jspTitle.setBackground(CommRes.hInfo.bkgColor);
+                this.jspTitle.setForeground(CommRes.hInfo.foreColor);
+                
+                this.jspDesc.setBackground(CommRes.hInfo.bkgColor);
+                this.jspDesc.setForeground(CommRes.hInfo.foreColor);
+                
+                this.tareaTitle.setBackground(CommRes.hInfo.bkgColor);
+                this.tareaTitle.setForeground(CommRes.hInfo.foreColor);
+                this.tareaTitle.setFont(fontTemp);
+               
+                this.tareaDesc.setBackground(CommRes.hInfo.bkgColor);
+                this.tareaDesc.setForeground(CommRes.hInfo.foreColor);
+                this.tareaDesc.setFont(fontTemp);
+                
+                
+                this.btnDelete.setBackground(Color.WHITE);
+                this.btnEdit.setBackground(Color.WHITE);
+                this.btnNew.setBackground(Color.WHITE);
+                this.btnRem.setBackground(Color.WHITE);
+                this.btnSetting.setBackground(Color.WHITE);
+                this.btnShare.setBackground(Color.WHITE);
+                this.btnSub.setBackground(Color.WHITE);
+                
+                this.pnlAction.setBackground(Color.WHITE);
+                this.pnlAction.setForeground(CommRes.hInfo.foreColor);
+                
+                this.setBackground(CommRes.hInfo.bkgColor);
+                
         }
     }
+  //  public void setColors(){
+        
+    //}
 
-}
