@@ -2,12 +2,15 @@
 package stickyclient;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.*;
 /**
  *
  * @author aditi
  */
 public class Settings extends JFrame{
+    public static boolean isOpen=false;
     FontSettings fontSettings;
     Reset reset;
     NetworkSettings networkSettings;
@@ -18,9 +21,16 @@ public class Settings extends JFrame{
     
     public Settings(){
         this.setLayout(null);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        
-        this.addWindowListener(new WindowAdapter(){    
+       // this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setResizable(false);
+        this.addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent we)
+            {
+                Settings.isOpen=false;
+                Settings.this.dispose();
+            }
         });
         
         this.jtb=new JTabbedPane();

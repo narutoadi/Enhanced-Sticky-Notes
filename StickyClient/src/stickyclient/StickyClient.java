@@ -45,7 +45,7 @@ public class StickyClient {
                 CommRes.hInfo.size=12;
                 CommRes.hInfo.style=Font.PLAIN;
                 CommRes.hInfo.foreColor=Color.BLACK;
-                CommRes.hInfo.bkgColor=Color.CYAN;
+                CommRes.hInfo.bkgColor=Color.WHITE;
                 CommRes.notesColl=new ArrayList<NotesInfo>();
                 
                 // Sticky note GUI handling

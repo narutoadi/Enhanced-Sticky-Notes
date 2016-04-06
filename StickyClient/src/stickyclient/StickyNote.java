@@ -188,15 +188,36 @@ public class StickyNote extends JFrame implements ActionListener{
         }
         
         if(ae.getSource()==this.btnSetting){
-            Settings win=new Settings();
-            Toolkit tool=Toolkit.getDefaultToolkit();
-            Dimension size=tool.getScreenSize();
-            final int WIDTH=500;
-            final int HEIGHT=400;
-            win.setBounds(size.width/2-WIDTH/2,size.height/2-HEIGHT/2,WIDTH,HEIGHT);
-            win.setTitle("Settings");
-            win.setResizable(false);
-            win.setVisible(true);
+            if(Settings.isOpen==false)
+            {
+                Settings.isOpen=true;
+                Settings win=new Settings();
+                Toolkit tool=Toolkit.getDefaultToolkit();
+                Dimension size=tool.getScreenSize();
+                final int WIDTH=500;
+                final int HEIGHT=400;
+                win.setBounds(size.width/2-WIDTH/2,size.height/2-HEIGHT/2,WIDTH,HEIGHT);
+                win.setTitle("Settings");
+                win.setResizable(false);
+                win.setVisible(true);
+            }
+        }
+        
+        if(ae.getSource()==this.btnRem){
+            
+            int prevHeight=this.getHeight();
+            int pnlRemHeight=Reminder.height;
+            this.setSize(CommRes.WIDTH, prevHeight+pnlRemHeight);
+            int pnlActionHeight=this.pnlAction.getHeight();
+            int pnlActionWidth=this.pnlAction.getWidth();
+            int pnlActionX=this.pnlAction.getX();
+            int pnlActionY=this.pnlAction.getY();
+            this.pnlAction.setBounds(pnlActionX, pnlActionY+pnlRemHeight, pnlActionWidth, pnlActionHeight);
+            Reminder pnl = new Reminder();
+            this.add(pnl);
+            pnl.setBounds(pnlActionX,pnlActionY,pnlActionWidth, pnlRemHeight);
+            pnl.setVisible(true);
+//this.setSize(WIDTH, HEIGHT);
         }
     }
     

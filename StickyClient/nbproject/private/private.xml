@@ -4,11 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/aditi/StickyApp/StickyClient/src/stickyclient/FontSettings.java</file>
+            <file>file:/home/aditi/StickyApp/StickyClient/src/stickyclient/Reset.java</file>
             <file>file:/home/aditi/StickyApp/StickyClient/src/stickyclient/StickyNote.java</file>
             <file>file:/home/aditi/StickyApp/StickyClient/src/stickyclient/HeaderInfo.java</file>
             <file>file:/home/aditi/StickyApp/StickyClient/src/stickyclient/NotesInfo.java</file>
             <file>file:/home/aditi/StickyApp/StickyClient/src/stickyclient/CommRes.java</file>
             <file>file:/home/aditi/StickyApp/StickyClient/src/stickyclient/Settings.java</file>
+            <file>file:/home/aditi/StickyApp/StickyClient/src/stickyclient/Reminder.java</file>
+            <file>file:/home/aditi/StickyApp/StickyClient/src/stickyclient/NetworkSettings.java</file>
             <file>file:/home/aditi/StickyApp/StickyClient/src/stickyclient/StickyClient.java</file>
         </group>
     </open-files>

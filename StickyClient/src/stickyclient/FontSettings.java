@@ -13,11 +13,11 @@ import javax.swing.JColorChooser;
  */
 public class FontSettings extends JPanel implements ActionListener{
     
-    JComboBox cmbColor,cmbStyle,cmbFont,cmbSize;  //convention: Every combobox object will start with cmb
+    JComboBox cmbStyle,cmbFont,cmbSize;  //convention: Every combobox object will start with cmb
 //convention: Every label object will start with lbl.
     JLabel lblFont,lblSize,lblStyle,lblForeColor,lblBkgColor;
     JButton btnChooseForeColor,btnChooseBkgColor,btnApply;
-    JTextArea foreColorPrw,bkgColorPrw,fontSettingsPrw;
+    JTextArea foreColorPrw,bkgColorPrw,fontSettingsPrw,overallPrw;
     @SuppressWarnings("empty-statement")
     public FontSettings(){
      this.setLayout(null);
@@ -32,6 +32,7 @@ public class FontSettings extends JPanel implements ActionListener{
         this.cmbFont = new JComboBox(GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames());
         this.bkgColorPrw=new JTextArea();
         this.foreColorPrw=new JTextArea();
+        this.overallPrw=new JTextArea("This is Preview");
         this.btnChooseBkgColor=new JButton("Choose");
         this.btnChooseForeColor=new JButton("Choose");
         this.fontSettingsPrw=new JTextArea();
@@ -39,11 +40,19 @@ public class FontSettings extends JPanel implements ActionListener{
         String[] sizearray={ "12","13","14","15","16" };
         this.cmbSize = new JComboBox(sizearray);
         
-                        
         String[] stylearray={ "BOLD","ITALICS","PLAIN"};
         this.cmbStyle = new JComboBox(stylearray);
         
         this.design();
+        // Setting Default values to combo boxes.
+        this.cmbFont.setSelectedItem(CommRes.hInfo.font);
+        this.cmbSize.setSelectedIndex(CommRes.hInfo.size-12);
+        if(CommRes.hInfo.style==Font.BOLD)
+        this.cmbStyle.setSelectedIndex(0);
+        else if(CommRes.hInfo.style==Font.ITALIC)
+        this.cmbStyle.setSelectedIndex(1);
+        else if(CommRes.hInfo.style==Font.PLAIN)
+        this.cmbStyle.setSelectedIndex(2);
     }
     private void design(){
         
@@ -61,13 +70,20 @@ public class FontSettings extends JPanel implements ActionListener{
        this.setPos(this.foreColorPrw, 265, 180, 30, 20);
        this.setPos(this.btnChooseBkgColor,160,220,100,20);
        this.setPos(this.bkgColorPrw, 265, 220, 30, 20);
+       this.setPos(this.overallPrw, 280, 62, 150, 50);
        this.foreColorPrw.setBackground(CommRes.hInfo.foreColor);
        this.bkgColorPrw.setBackground(CommRes.hInfo.bkgColor);
+       this.overallPrw.setBackground(CommRes.hInfo.bkgColor);
+       this.overallPrw.setForeground(CommRes.hInfo.foreColor);
+       this.overallPrw.setFont(new Font(CommRes.hInfo.font,CommRes.hInfo.style,CommRes.hInfo.size));
        this.setPos(this.btnApply,260,300,100,20);
        this.setPos(this.fontSettingsPrw, WIDTH, WIDTH, WIDTH, WIDTH);
        this.btnChooseBkgColor.addActionListener(this);
        this.btnChooseForeColor.addActionListener(this);
        this.btnApply.addActionListener(this);
+       this.cmbFont.addActionListener(this);
+       this.cmbSize.addActionListener(this);
+       this.cmbStyle.addActionListener(this);
     }
     //User defined method (just for ease of readability) component to set each component
     private void setPos(Component C,int x,int y,int w,int h){
@@ -78,17 +94,56 @@ public class FontSettings extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent ae) {
         //Font font = new Font("Verdana", Font.BOLD, 12);
-        
+            
+            String tempFont=CommRes.hInfo.font;
+            int tempSize=CommRes.hInfo.size;
+            int tempStyle=CommRes.hInfo.style;
+            Font temp;
             Color fColor,bColor;
-            if(ae.getSource()==this.btnChooseBkgColor)
-            {
-                bColor = JColorChooser.showDialog(this,"Background Color", CommRes.hInfo.bkgColor);
+        if(ae.getSource()==this.btnChooseBkgColor)
+        {
+            bColor = JColorChooser.showDialog(this,"Background Color", CommRes.hInfo.bkgColor);
             this.bkgColorPrw.setBackground(bColor);
-            }
+            this.overallPrw.setBackground(bColor);
+        }
         if(ae.getSource()==this.btnChooseForeColor)
         {
-                        fColor = JColorChooser.showDialog(this,"Foreground Color", CommRes.hInfo.foreColor);
+            fColor = JColorChooser.showDialog(this,"Foreground Color", CommRes.hInfo.foreColor);
             this.foreColorPrw.setBackground(fColor);
+            this.overallPrw.setForeground(fColor);
+        }
+        if(ae.getSource()==this.cmbFont)
+        {
+            tempFont=this.cmbFont.getSelectedItem().toString();
+            tempSize=Integer.parseInt(this.cmbSize.getSelectedItem().toString());
+            String abc=this.cmbStyle.getSelectedItem().toString();
+            if(abc=="BOLD")tempStyle=Font.BOLD;
+            if(abc=="ITALICS")tempStyle=Font.ITALIC;
+            if(abc=="PLAIN")tempStyle=Font.PLAIN;
+            temp=new Font(tempFont,tempStyle,tempSize);
+            this.overallPrw.setFont(temp);
+        }
+        if(ae.getSource()==this.cmbSize)
+        {
+            tempFont=this.cmbFont.getSelectedItem().toString();
+            tempSize=Integer.parseInt(this.cmbSize.getSelectedItem().toString());
+            String abc=this.cmbStyle.getSelectedItem().toString();
+            if(abc=="BOLD")tempStyle=Font.BOLD;
+            if(abc=="ITALICS")tempStyle=Font.ITALIC;
+            if(abc=="PLAIN")tempStyle=Font.PLAIN;
+            temp=new Font(tempFont,tempStyle,tempSize);
+            this.overallPrw.setFont(temp);
+        }
+        if(ae.getSource()==this.cmbStyle)
+        {
+            tempFont=this.cmbFont.getSelectedItem().toString();
+            tempSize=Integer.parseInt(this.cmbSize.getSelectedItem().toString());
+            String abc=this.cmbStyle.getSelectedItem().toString();
+            if(abc=="BOLD")tempStyle=Font.BOLD;
+            if(abc=="ITALICS")tempStyle=Font.ITALIC;
+            if(abc=="PLAIN")tempStyle=Font.PLAIN;
+            temp=new Font(tempFont,tempStyle,tempSize);
+            this.overallPrw.setFont(temp);
         }
         if(ae.getSource()==this.btnApply)
         {
