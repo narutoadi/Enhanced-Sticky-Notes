@@ -70,7 +70,7 @@ public class Reset extends JPanel implements ActionListener {
         }
         if(ae.getSource()==this.btnReset)
         {
-            int n = JOptionPane.showConfirmDialog(new Settings(),"Are you sure that you want to delete all sticky notes?","Confirmation!!",JOptionPane.YES_NO_OPTION);
+            int n = JOptionPane.showConfirmDialog(this,"Are you sure that you want to delete all sticky notes?","Confirmation!!",JOptionPane.YES_NO_OPTION);
         //    System.out.println(n);
             if(n==0)
             {

@@ -7,6 +7,7 @@
 package stickyclient;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Vector;
 /**
  *
  * @author pc
@@ -16,7 +17,10 @@ public class NotesInfo  implements Serializable{
     String title;
     String desc;
     String createdOn;
-    ArrayList<String> subnotes;
+    ArrayList<String> subnotes; //Arraylist to transfer subnotes-content between file and window
+    
+    
+    
     int X;
     int Y;
 }

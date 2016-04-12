@@ -13,6 +13,7 @@ public class Settings extends JFrame{
     public static boolean isOpen=false;
     FontSettings fontSettings;
     Reset reset;
+    Options options;
     NetworkSettings networkSettings;
 //    JButton btnApply;
 //    JButton btnCancel;
@@ -36,6 +37,7 @@ public class Settings extends JFrame{
         this.jtb=new JTabbedPane();
         this.fontSettings=new FontSettings();
         this.reset=new Reset();
+        this.options=new Options();
         this.networkSettings=new NetworkSettings();
 //        this.btnApply=new JButton("APPLY");
 //        this.btnCancel=new JButton("CANCEL");
@@ -43,6 +45,7 @@ public class Settings extends JFrame{
 //        
         this.jtb.addTab("FONT", fontSettings);
         this.jtb.addTab("RESET", reset);
+        this.jtb.addTab("OPTIONS", options);
         this.jtb.addTab("NETWORK", networkSettings);
         
         this.design();

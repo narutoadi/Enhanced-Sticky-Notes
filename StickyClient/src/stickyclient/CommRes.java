@@ -18,9 +18,9 @@ public class CommRes {
     public static boolean isFirst;  //True if the application is run for the first time.
     public static final int WIDTH=200;  
     public static Font font=new Font("Arial",Font.ITALIC,12);
-    public static Vector notes;     //Vector to store all the notes.
+    public static Vector notes;     //Vector to store all the note windows.
     public static HeaderInfo hInfo; // Class that stores common but alterable information. 
-    public static ArrayList<NotesInfo> notesColl; 
+    public static ArrayList<NotesInfo> notesColl;  //Arraylist to transfet all notes between file and corresponding window.
       public static void updateFile(){
         try{
             FileOutputStream fout=new FileOutputStream("Notes.stk",false);

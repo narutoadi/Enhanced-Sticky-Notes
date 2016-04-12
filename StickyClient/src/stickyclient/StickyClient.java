@@ -40,6 +40,7 @@ public class StickyClient {
                 // Initializing members of headerinfo (with default values)
                 // This values can be later changed by settings tab.
                 CommRes.hInfo.createdOn="";
+                CommRes.hInfo.isPassSet=false;
                 CommRes.hInfo.password="";
                 CommRes.hInfo.font="Arial";
                 CommRes.hInfo.size=12;
@@ -109,6 +110,7 @@ public class StickyClient {
                     note.tareaTitle.setText(CommRes.notesColl.get(i).title);
                     note.tareaDesc.setText(CommRes.notesColl.get(i).desc);
                     note.id=CommRes.notesColl.get(i).id;
+                    System.out.println("Subnotes in "+CommRes.notesColl.get(i).id+" = "+CommRes.notesColl.get(i).subnotes.size());
                     note.isNew=false;
                     note.setTitle(note.id);
                     CommRes.notes.add(note);

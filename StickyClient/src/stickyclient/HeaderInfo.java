@@ -8,6 +8,7 @@ import java.io.*;
  * @author aditi
  */
 public class HeaderInfo implements Serializable{
+    boolean isPassSet;
     String createdOn;
     String password;
     String font;
